@@ -1,0 +1,43 @@
+services:
+  zookeeper:
+    image: zookeeper:3.6.3
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+  
+  kafka:
+    image: wurstmeister/kafka:latest
+    environment:
+      KAFKA_ADVERTISED_LISTENER: INSIDE://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_LISTENER_NAME_INTERNAL: INSIDE
+      KAFKA_LISTENER_PORT: 9093
+      KAFKA_LISTENER_INTERFACE: eth0
+      KAFKA_LISTENER_INSIDE_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_NAME_EXTERNAL: OUTSIDE
+      KAFKA_ADVERTISED_LISTENER_OUTSIDE: localhost:9094
+      KAFKA_LISTENER_OUTSIDE_PORT: 9094
+      KAFKA_LISTENER_OUTSIDE_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_LISTENER_INTERNAL_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://localhost:9093,OUTSIDE://localhost:9094  # Add this line to define listeners
+      
+      # Disable auto topic creation to avoid replication factor errors
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      
+      
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    
+    
+    
+    
+    ports:
+      - "9094:9094"    # External listener
+      - "9093:9093"    # Internal listener
+    depends_on:
+      - zookeeper
+
+

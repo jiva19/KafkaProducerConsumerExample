@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <RootNamespace>KafkaProducerConsumer_</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="TestContainers.Container.Database" Version="1.5.4" />
+        <PackageReference Include="coverlet.collector" Version="6.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+        <PackageReference Include="NUnit" Version="3.14.0" />
+        <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+        <PackageReference Include="Testcontainers" Version="4.1.0" />
+        <PackageReference Include="TestContainers.Kafka" Version="4.1.0" />
+        <PackageReference Include="TestContainers.Container.Abstractions" Version="1.5.4" />
+        
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="NUnit.Framework" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\KafkaProducerConsumer\KafkaProducerConsumer.csproj" />
+      <ProjectReference Include="..\KafkaProducerConsumer\KafkaProducerConsumer.csproj" />
+    </ItemGroup>
+
+</Project>
